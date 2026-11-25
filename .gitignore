@@ -1,0 +1,45 @@
+# --- Archivos auxiliares de LaTeX ---
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.gz
+*.xdv
+*.nav
+*.snm
+*.vrb
+*.lol
+
+# --- Bibliografía (BibTeX / Biber) ---
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*-blx.bib
+
+# --- Índice alfabético (makeindex) ---
+*.idx
+*.ilg
+*.ind
+
+# --- Carpetas de compilación ---
+build/
+out/
+
+# --- PDF generado ---
+# Se genera solo con GitHub Actions. Si quieres guardar el PDF
+# dentro del repositorio, borra la línea siguiente.
+main.pdf
+
+# --- Editores y sistema ---
+.DS_Store
+Thumbs.db
+*~
+*.swp
+.vscode/
+.idea/
