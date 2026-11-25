@@ -16,10 +16,14 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          latexmk_use_xelatex: false
+          args: -pdf -file-line-error -interaction=nonstopmode
 
-      - name: Subir PDF
+      - name: Subir PDF y log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mecanica-distribuciones
-          path: main.pdf
+          path: |
+            main.pdf
+            main.log
+          if-no-files-found: warn
