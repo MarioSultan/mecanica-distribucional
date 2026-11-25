@@ -1,0 +1,74 @@
+% ==================================================
+% MECÁNICA DE DISTRIBUCIONES — archivo principal
+% Este archivo solo "monta" el libro; el contenido
+% vive en capitulos/, apendices/ y portada/.
+% ==================================================
+% Para IMPRESIÓN con capítulos siempre en página impar: cambia openany por openright
+\documentclass[11pt,a4paper,openany]{book}
+
+\input{preambulo}
+
+% --------------------------------------------------
+% COMPILAR SOLO LO QUE ESTÁS ESCRIBIENDO
+% --------------------------------------------------
+% Descomenta la línea siguiente y deja solo los capítulos
+% que quieras compilar. Es MUCHO más rápido en un libro grande.
+% La numeración y las referencias del resto se conservan
+% (hay que haber compilado el libro completo al menos una vez).
+%
+% \includeonly{capitulos/01-fundamentos}
+
+\begin{document}
+
+% --------------------------------------------------
+% CUBIERTA Y PÁGINAS PRELIMINARES (sin numerar)
+% --------------------------------------------------
+\hypersetup{pageanchor=false}
+\pagenumbering{alph}
+\input{portada/cubierta}      % cubierta
+\input{portada/anteportada}   % anteportada (solo el título)
+\input{portada/portada}       % portada interior
+\input{portada/creditos}      % créditos / copyright
+\input{portada/dedicatoria}   % dedicatoria
+
+% --------------------------------------------------
+% PÁGINAS INICIALES (numeración romana)
+% --------------------------------------------------
+\frontmatter
+\hypersetup{pageanchor=true}
+\input{portada/prefacio}
+\tableofcontents
+\input{portada/notacion}
+
+\mainmatter
+
+% --------------------------------------------------
+% CAPÍTULOS  (uno por archivo; añade una línea por tema)
+% --------------------------------------------------
+\include{capitulos/01-fundamentos}
+% \include{capitulos/02-siguiente-tema}
+
+% --------------------------------------------------
+% APÉNDICES
+% --------------------------------------------------
+\appendix
+\include{apendices/a-resultados-auxiliares}
+
+% --------------------------------------------------
+% BIBLIOGRAFÍA E ÍNDICE ALFABÉTICO
+% --------------------------------------------------
+\backmatter
+
+% \nocite{*} incluye todas las entradas de referencias.bib aunque no
+% se citen. Bórralo cuando empieces a usar \cite{...} de verdad.
+\nocite{*}
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliographystyle{plain}
+\bibliography{referencias}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{\indexname}
+\printindex
+
+\end{document}

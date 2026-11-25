@@ -1,0 +1,50 @@
+% ==================================================
+% CUBIERTA
+% Fondo oscuro y una familia de gaussianas que se
+% estrechan hasta convertirse en una delta de Dirac.
+% ==================================================
+\begin{pagina}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+
+  % Fondo
+  \fill[darkcolor] (current page.south west) rectangle (current page.north east);
+
+  % Franja lateral fina
+  \fill[maincolor] ([xshift=1.6cm]current page.south west)
+        rectangle ([xshift=1.72cm]current page.north west |- current page.north west);
+
+  % Gaussianas -> delta
+  \begin{scope}[shift={([yshift=-4.2cm]current page.center)}]
+    \draw[maincolor!50!white, opacity=0.35, line width=0.5pt]
+      (-9,0) -- (9,0);
+    \foreach \sig/\opa in {1.60/0.22, 1.20/0.30, 0.90/0.40, 0.65/0.52,
+                           0.45/0.66, 0.30/0.82, 0.20/1.00}{
+      \draw[color=maincolor!70!white, opacity=\opa, line width=0.9pt,
+            domain=-9:9, samples=240, smooth, variable=\x]
+        plot ({\x},{1.1/\sig*exp(-(\x*\x)/(2*\sig*\sig))});
+    }
+    % Delta de Dirac
+    \draw[white, line width=1.1pt, -{Stealth[length=7pt,width=6pt]}] (0,0) -- (0,6.6);
+  \end{scope}
+
+  % Cabecera
+  \node[anchor=north west, text=maincolor!35!white, inner sep=0pt]
+    at ([xshift=2.8cm,yshift=-3cm]current page.north west)
+    {\scshape\large Mecánica teórica};
+
+  % Título
+  \node[anchor=north west, text=white, align=left, inner sep=0pt, text width=15cm]
+    at ([xshift=2.8cm,yshift=-4.6cm]current page.north west)
+    {{\fontsize{44}{50}\selectfont\spaceskip=0pt\relax\bfseries Mecánica de\\[2pt] Distribuciones}\\[1.3cm]
+     {\color{maincolor!45!white}\rule{3cm}{1.4pt}}\\[0.6cm]
+     {\fontsize{14}{20}\selectfont\spaceskip=0pt\relax\color{white!85!maincolor}
+      Fundamentos matemáticos\\ y formulación hamiltoniana}};
+
+  % Autor
+  \node[anchor=south west, text=white, inner sep=0pt]
+    at ([xshift=2.8cm,yshift=2.4cm]current page.south west)
+    {\scshape\Large Mario Sultan Romero};
+
+\end{tikzpicture}
+\end{pagina}

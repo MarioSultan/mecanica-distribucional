@@ -1,0 +1,56 @@
+\chapter{Fundamentos}
+\label{cap:fundamentos}
+
+% \epigrafe{Texto de la cita.}{Autor}
+
+\section{Introducción}
+
+% Introducción del capítulo.
+
+\section{Distribución espacial}
+\index{distribucion@distribución!espacial}
+
+\begin{definicion}{Distribución de partículas}{distribucion-particulas}
+Sea un sistema de $N$ partículas cuyas posiciones
+vienen dadas por $x_i(t)\in\R^d$.
+Definimos la distribución espacial normalizada como
+\[
+\rho(x,t)=\frac{1}{N}\sum_{i=1}^{N}\delta(x-x_i(t)).
+\]
+\end{definicion}
+
+\begin{ejemplo}{Sistema de dos partículas}{dos-particulas}
+Consideremos dos partículas situadas en $a$ y $b$.
+La distribución correspondiente es
+\[
+\rho(x)=\frac12\delta(x-a)+\frac12\delta(x-b).
+\]
+Su normalización se verifica integrando sobre todo el espacio.
+\end{ejemplo}
+
+\begin{teorema}{Normalización}{normalizacion}
+La distribución espacial de la Definición~\ref{def:distribucion-particulas}
+satisface
+\[
+\int_{\R^d}\rho(x,t)\,\dif x=1.
+\]
+\end{teorema}
+
+\begin{demostracion}
+Sustituyendo la definición de la distribución,
+\[
+\int_{\R^d}\rho(x,t)\,\dif x
+=\frac1N\sum_{i=1}^N\int_{\R^d}\delta(x-x_i(t))\,\dif x.
+\]
+Por la propiedad de normalización de la delta de Dirac,
+cada integral vale la unidad. Por tanto,
+\[
+\int_{\R^d}\rho(x,t)\,\dif x=\frac1N\sum_{i=1}^N 1=1.
+\]
+\end{demostracion}
+
+\begin{observacion}
+La distribución no representa necesariamente una densidad ordinaria
+respecto a la medida de Lebesgue. Debe interpretarse en sentido
+distribucional.
+\end{observacion}
