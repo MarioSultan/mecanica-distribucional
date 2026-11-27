@@ -5,52 +5,215 @@
 
 \section{Introducción}
 
-% Introducción del capítulo.
+La mecánica clásica describe habitualmente un sistema mediante las posiciones y los momentos de cada una de sus partículas. Sin embargo, cuando el número de partículas es muy elevado, esta descripción individual resulta poco práctica. En estos casos es conveniente abandonar la descripción de cada partícula por separado y adoptar un enfoque continuo, en el que el estado del sistema quede caracterizado por funciones que describan cómo se distribuyen las posiciones y los momentos de las partículas.
 
-\section{Distribución espacial}
-\index{distribucion@distribución!espacial}
+\[\{x_i\}\qquad \{p_i\}\]
+
+El objetivo de este capítulo es introducir las herramientas matemáticas necesarias para construir esta descripción. Comenzaremos con un sistema finito de partículas y tomaremos el límite cuando $N\to\infty$ para obtener las distribuciones correspondientes.
+
+\[\rho(x,t)\qquad\tilde\rho(p,t)\]
+
+Estas distribuciones permiten describir sistemas de muchas partículas mediante funciones de densidad, facilitando el estudio de sus propiedades globales y de su evolución temporal. En particular, se establecerán las relaciones entre las distribuciones espaciales y las de momentos, sentando las bases para desarrollar más adelante una formulación de la mecánica en términos de distribuciones.
+
+Desde el punto de vista de las distribuciones, la posición exacta de cada partícula no es realmente relevante. Lo que realmente importa son las características estadísticas de la distribución, ya sea su valor medio, su dispersión, sus máximos, etcétera.
+
+
+
+\newpage\section{Posiciones y momentos}
+
+Para el desarrollo de la Mecánica de Distribuciones, el primer paso es definir qué es una distribución. 
 
 \begin{definicion}{Distribución de partículas}{distribucion-particulas}
-Sea un sistema de $N$ partículas cuyas posiciones
-vienen dadas por $x_i(t)\in\R^d$.
-Definimos la distribución espacial normalizada como
-\[
-\rho(x,t)=\frac{1}{N}\sum_{i=1}^{N}\delta(x-x_i(t)).
-\]
+Una distribución de partículas es una función $\rho(x,t)$ que cuantifica la cantidad de partículas que hay en un lugar $[x,x+\Delta x]$ en un tiempo $[t,t+\Delta t]$. Por convenio, la integral de la densidad sobre todo el espacio debe ser igual a 1, lo que se conoce como \textit{normalización}.
+\[\int_\mathbb R\rho(x,t)\;dx=1\]
 \end{definicion}
 
-\begin{ejemplo}{Sistema de dos partículas}{dos-particulas}
-Consideremos dos partículas situadas en $a$ y $b$.
-La distribución correspondiente es
-\[
-\rho(x)=\frac12\delta(x-a)+\frac12\delta(x-b).
+Pongamos que tenemos un sistema de $N$ partículas, donde cada una se encuentra en una posición $x_i$ que depende del tiempo. El número de partículas que se encuentran en el intervalo $[x,x+\Delta x]$ se puede calcular mediante deltas de Dirac, pues la integral de cada una da 1 si $x_i\in[x,x+\Delta x]$ y 0 si no. Su suma otorga el número de partículas, que denotaremos como $N([x,x+\Delta x])$. Formalmente, esta $N([x,x+\Delta x])$ es una medida sobre $\R$, pues asigna un valor real positivo a cada intervalo.
+
+\[N([x,x+\Delta x])=\sum_i\int_{x}^{x+\Delta x}\delta(x-x_i)\;dx\]
+
+Se define el valor real $N$ como $N:=N(\R)$, es decir, $N$ es el número total de partículas. No hay que confundir la medida $N([x,x+\Delta x])$ con el valor $N$, están relacionados pero no son lo mismo.
+\\\\
+La densidad numérica es el número de partículas que hay en un cierto lugar dividido entre la longitud de dicho lugar. La longitud del intervalo $[x,x+\Delta x]$ es $\Delta x$. Denotamos esta densidad numérica como $n([x,x+\Delta x])$, y de nuevo es una medida sobre $\R$.
+
+\[n([x,x+\Delta x])=\frac1{\Delta x}\sum_i\int_{x}^{x+\Delta x}\delta(x-x_i) \;dx\]
+
+Para conseguir algo que parezca una densidad hace falta que el intervalo $\Delta x$ sea infinitesimal. Además, para que cumpla la condición de normalización es necesario dividir entre $N$, el número de partículas. Denominemos $f$ a esta densidad.
+
+\[f(x,t)=\frac1N\lim_{\Delta x\to0}\frac1{\Delta x}\sum_i\int_{x}^{x+\Delta x}\delta(x-x_i) \;dx\]
+
+Por la propia definición de derivada como límite y el teorema fundamental del cálculo, la integral se va dejando una expresión muy simple. 
+
+\begin{equation}
+    f(x,t)=\frac1N\sum_i\delta(x-x_i)
+    \label{eq:densidad_N_finito}
+\end{equation}
+
+Esta es una función de densidad completamente válida, aun así, es mucho más interesante ver qué pasa en el límite de $N\to\infty$ partículas, pues es donde empiezan los comportamientos interesantes. Definimos la densidad $\rho(x,t)$ como este límite. Esta densidad $\rho(x,t)$ será la que se use a lo largo de todo este capítulo.
+
+\[\rho(x,t)=\lim_{N\to\infty}\frac1N\sum_{i=1}^N\delta(x-x_i)\]
+
+Al hacer el límite hay que recordar que el sumatorio también depende de $N$, por lo que no puede sacarse fuera de este. Para realizar el límite es mucho más inteligente definir un parámetro $s:=i/N$, cuyo dominio, a diferencia de $i\in[1,\infty)$ es $(0,1]$. La razón por la que usar $s$ es útil es porque es un parámetro continuo, y permite escribir el sumatorio como una sencilla integral entre 0 y 1. Como el sumatorio tiene implícito un $\Delta i=1$, al juntarlo con la $N$ se obtiene el diferencial $ds\equiv\Delta i/N$. Ahora la $x_i$ pasa a ser una función de $s$. Es importante no confundir la $x$, referente a la $\rho(x,t)$, con la $x(s)$, que es la posición individual de cada partícula. El parámetro $s$ etiqueta a cada partícula.
+
+\[\rho(x,t)=\int_0^1\delta(x-x(s))\;ds\]
+
+Es incómodo tener el diferencial $ds$ en la integral cuando la delta está en función de $x(s)$. Usando las propiedades de la delta de Dirac se puede pasar a escribir:
+
+\[\rho(x,t)=\int_0^1\left|\frac{\partial s}{\partial x(s)}\right|\delta(x-x(s))\;dx(s)\]
+
+E integrando directamente se encuentra la forma de la densidad. Denominamos a esta función la \textit{densidad continua de posiciones}, aunque a veces también puede encontrarse como \textit{densidad macroscópica}.
+
+\begin{definicion}{Densidad continua de posiciones}{densidad-posiciones}
+Sea un conjunto de partículas etiquetadas por un parámetro $s$ y sean $x(s)$ sus posiciones, la densidad asociada a esta distribución se calcula como:
+
+\[\rho(x,t)=\frac1{\left|\frac{\partial x(s)}{\partial s}\right|}\]
+\end{definicion}
+
+ En la mecánica hamiltoniana, un sistema se describe tanto por su posición como por su momento. Por tanto, al igual que se ha definido una densidad de posiciones, también puede definirse una de momentos. Como el procedimiento es análogo, la solución será muy parecida a la de posiciones. Para distinguir la distribución de posiciones de la de momentos, se denota a esta última como $\tilde\rho(p,t)$.
+
+ \begin{definicion}{Densidad continua de momentos}{densidad-momentos}
+Sea un conjunto de partículas etiquetadas por un parámetro $s$ y sean $p(s)$ sus momentos, la densidad asociada a esta distribución se calcula como:
+
+\[\tilde\rho(p,t)=\frac1{\left|\frac{\partial p(s)}{\partial s}\right|}\] 
+\end{definicion}
+
+El cambio de variable entre una distribución y la otra sale directamente de aplicar la regla de la cadena.
+
+\[\rho(x,t)=\left|\frac{\partial p}{\partial x}\right|\tilde\rho(p,t)\]
+
+Esto indica que las distribuciones de posiciones y momentos están estrechamente relacionadas entre sí. Si se conoce una de ellas (además de la relación entre $x$ y $p$), puede calcularse la otra y viceversa. 
+
+\newpage
+\begin{ejemplo}{Densidad de posiciones}{ej-densidad-posiciones}
+Se tiene un conjunto de partículas separadas uniformemente, de las cuales además su posición varía con el tiempo. La posición en función del parámetro $s$ y el tiempo $t$ viene dada por la siguiente función.
+
+\[x(s,t)=Ls(1+\alpha t), \qquad \alpha>0\]
+
+La distribución de posiciones de aplicar la definición \ref{def:densidad-posiciones}.
+
+\[\rho(x,t)=\frac{1}{\left|\frac{\partial}{\partial s}\left[Ls(1+\alpha)t\right]\right|}=\frac{1}{L(1+\alpha t)}\]
+
+Hay que recordar que $s$ pertenece al intervalo $(0,1]$, por lo que la distribución toma el valor calculado en ese intervalo y se anula fuera. Si $s\in(0,1]$, es fácil ver que $0<x\leq L(1+\alpha t)$.
+
+\[\rho(x,t)=
+\begin{cases}
+    \frac{1}{L(1+\alpha t)} & \text{si } 0<x\leq L(1+\alpha t) \\
+    0 & \text{si no} 
+\end{cases}
 \]
-Su normalización se verifica integrando sobre todo el espacio.
+
+ara visualizar la evolución temporal de esta distribución, representamos
+$\rho(x,t)$ para distintos instantes. Tomando $L=1$ y $\alpha=0.5$,
+se obtiene:
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.88\textwidth,
+    height=7cm,
+    xmin=0, xmax=2.2,
+    ymin=0, ymax=1.15,
+    axis lines=left,
+    xlabel={$x$},
+    ylabel={$\rho(x,t)$},
+    xlabel style={at={(axis description cs:1,0)},
+                  anchor=north west},
+    ylabel style={at={(axis description cs:0,1)},
+                  anchor=south east},
+    xtick={0,0.5,1,1.5,2},
+    ytick={0,0.5,1},
+    tick label style={font=\small},
+    label style={font=\small},
+    legend style={
+        at={(0.97,0.97)},
+        anchor=north east,
+        font=\small,
+        draw=none,
+        fill=white,
+        fill opacity=0.9,
+        text opacity=1
+    },
+    clip=false
+]
+
+% t = 0
+\addplot[
+    maincolor,
+    very thick,
+    no marks
+] coordinates {
+    (0,1) (1,1)
+};
+\addlegendentry{$t=0$}
+
+% t = 1
+\addplot[
+    darkcolor,
+    very thick,
+    no marks
+] coordinates {
+    (0,0.6667) (1.5,0.6667)
+};
+\addlegendentry{$t=1$}
+
+% t = 2
+\addplot[
+    graycolor,
+    very thick,
+    no marks
+] coordinates {
+    (0,0.5) (2,0.5)
+};
+\addlegendentry{$t=2$}
+
+% Límites de los soportes
+\addplot[
+    maincolor,
+    densely dashed,
+    thin
+] coordinates {(1,0) (1,1)};
+
+\addplot[
+    darkcolor,
+    densely dashed,
+    thin
+] coordinates {(1.5,0) (1.5,0.6667)};
+
+\addplot[
+    graycolor,
+    densely dashed,
+    thin
+] coordinates {(2,0) (2,0.5)};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Se observa que, según las partículas se mueven a su velocidad correspondiente, la distribución se ensancha más y más, sin embargo, nunca se pierde la normalización.
+
+\[\int_0^{L(1+\alpha t)}\frac{1}{L(1+\alpha t)}\;dx=1\]
+
+La velocidad de las partículas es $\alpha Ls$, pero no es casualidad, es que es la derivada de las posiciones respecto al tiempo.
+
+\[v(s,t)=\frac{\partial x(s,t)}{\partial t}=\alpha Ls \]
+
+Como $v(s,t)$ depende de $s$, quiere decir que no todas las partículas se mueven a la misma velocidad. Las primeras están quietas, pero las últimas se mueven a una velocidad de $\alpha L$.
+
 \end{ejemplo}
 
-\begin{teorema}{Normalización}{normalizacion}
-La distribución espacial de la Definición~\ref{def:distribucion-particulas}
-satisface
-\[
-\int_{\R^d}\rho(x,t)\,\dif x=1.
-\]
-\end{teorema}
 
-\begin{demostracion}
-Sustituyendo la definición de la distribución,
-\[
-\int_{\R^d}\rho(x,t)\,\dif x
-=\frac1N\sum_{i=1}^N\int_{\R^d}\delta(x-x_i(t))\,\dif x.
-\]
-Por la propiedad de normalización de la delta de Dirac,
-cada integral vale la unidad. Por tanto,
-\[
-\int_{\R^d}\rho(x,t)\,\dif x=\frac1N\sum_{i=1}^N 1=1.
-\]
-\end{demostracion}
+\begin{ejemplo}{Densidad de momentos}{ej-densidad-momentos}
+---
+\end{ejemplo}
 
-\begin{observacion}
-La distribución no representa necesariamente una densidad ordinaria
-respecto a la medida de Lebesgue. Debe interpretarse en sentido
-distribucional.
-\end{observacion}
+
+\newpage\section{Flujo y continuidad}
+\newpage\section{Parámetros estadísticos}
+\newpage\section{Espacio de fases}
+\newpage\section{Sistemas dispersivos}
+\newpage\section{Sistemas ligados}
+
+
+
+
+
