@@ -26,7 +26,9 @@
 \hypersetup{pageanchor=false}
 \pagenumbering{alph}
 \input{portada/cubierta}      % cubierta
+\cleardoublepage
 \input{portada/anteportada}   % anteportada (solo el título)
+\cleardoublepage
 \input{portada/portada}       % portada interior
 \input{portada/creditos}      % créditos / copyright
 \input{portada/dedicatoria}   % dedicatoria
@@ -37,8 +39,9 @@
 \frontmatter
 \hypersetup{pageanchor=true}
 \input{portada/prefacio}
+\cleardoublepage
 \tableofcontents
-\input{portada/notacion}
+%\input{portada/notacion}
 
 \mainmatter
 
@@ -52,7 +55,7 @@
 % APÉNDICES
 % --------------------------------------------------
 \appendix
-\include{apendices/a-resultados-auxiliares}
+%\include{apendices/a-resultados-auxiliares}                <----- ESTO ESTÁ POR SI HICIESE FALTA
 
 % --------------------------------------------------
 % BIBLIOGRAFÍA E ÍNDICE ALFABÉTICO
